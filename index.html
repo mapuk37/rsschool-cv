@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <title>CV Artem Markov</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Artem Markov</h1>
+            <img src="photo.jpg" alt="My Photo" width="300" height="243">
+            <h3>Contact info</h3>
+            <p>
+                <a href="mailto:mr.venezuela37@gmail.com">mr.venezuela37@gmail.com</a></li>,
+                <a href="https://github.com/mapuk37">github.com/mapuk37</a></li>,
+                <tel>+79038892399</tel>
+            </p>
+        </header>
+
+        <main>
+
+            <section class="main_section">
+                <h2>Summary</h2>
+
+                <p class="main_section_item">
+                    My main goal is to change my profession. I have been working as electric engineer for some years.
+                    Some months ago I’ve realised that I’m tired of it and began to take an interest in programming.
+                    Firstly I’ve finished some courses of VBA for Excel and made some macros for my previous job.
+                    Then took an interest in web development and tried to study myself.
+                    Recently my friend advised me your courses and I think that it would help me to achieve my goal.
+                </p>
+            </section>
+
+            <section class="main_section">
+                <h2>Skills</h2>
+
+                <div class="main_section_item">
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>Python</li>
+                        <li>VBA</li>
+                    </ul>
+                    <p>
+                        I know the basics of all these languages. As for IDEs I’ve used <strong>WebStorm</strong>,
+                        <strong>PyCharm</strong> and built-in <strong>VB IDE in Excel</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section class="main_section">
+                <h2>Code Examples</h2>
+
+                <div class="main_section_item">
+
+                    <p>
+                        Here’s a metrics server that I’ve made on Python courses.
+                    </p>
+
+                    <code>
+                        import asyncio<br>
+                        <br>
+                        METRIC = dict()<br>
+                        <br>
+                        class ClientServerProtocol(asyncio.Protocol):<br>
+                        def connection_made(self, transport):<br>
+                        self.transport = transport<br>
+                        <br>
+                        def data_received(self, data):<br>
+                        self.transport.write(self._process(data.decode('utf-8').strip('\r\n')).encode('utf-8'))<br>
+                        req = data.decode('utf-8').strip('\r\n').split(' ')<br>
+                        cmd = req[0]<br>
+                        <br>
+                        def _process(self, command):<br>
+                        req = command.split(' ')<br>
+                        if req[0] == 'get':<br>
+                        return self._process_get(req[1])<br>
+                        elif req[0] == 'put':<br>
+                        return self._process_put(req[1], req[2], req[3])<br>
+                        else:<br>
+                        return 'error\nwrong command\n\n'<br>
+                        <br>
+                        def _process_get(self, key):<br>
+                        resp = 'ok\n'<br>
+                        if key == '*':<br>
+                        for key, values in METRIC.items():<br>
+                        for value in values:<br>
+                        resp = resp + key + ' ' + value[1] + ' ' + value[0] + '\n'<br>
+                        else:<br>
+                        if key in METRIC:<br>
+                        for value in METRIC[key]:<br>
+                        resp = resp + key + ' ' + value[1] + ' ' + value[0] + '\n'<br>
+                        <br>
+                        return resp + '\n'<br>
+                        <br>
+                        def _process_put(self, key, value, timestamp):<br>
+                        if key == '*':<br>
+                        return 'error\nkey cannot contain *\n\n'<br>
+                        if not key in METRIC:<br>
+                        METRIC[key] = list()<br>
+                        if not (timestamp, value) in METRIC[key]:<br>
+                        METRIC[key].append((timestamp, value))<br>
+                        METRIC[key].sort(key=lambda tup: tup[0])<br>
+                        return 'ok\n\n'<br>
+                        <br>
+                        def run_server(host, port):<br>
+                        loop = asyncio.get_event_loop()<br>
+                        coroutine = loop.create_server(ClientServerProtocol, host, port)<br>
+                        server = loop.run_until_complete(coroutine)<br>
+                        <br>
+                        try:<br>
+                        loop.run_forever()<br>
+                        except KeyboardInterrupt:<br>
+                        pass<br>
+                        <br>
+                        server.close()<br>
+                        loop.run_until_complete(server.wait_closed())<br>
+                        loop.close()<br>
+                    </code>
+                </div>
+            </section>
+
+            <section class="main_section">
+                <h2>Experience</h2>
+
+                <p class="main_section_item">
+                    To tell the truth I have nothing to demonstrate connected with web development because it’s my first course
+                    and previously I’ve just read theory and made excercises online.
+                    I have been trying to make some site by myself but it’s far from finishing and now I feel that I would not
+                    have enough time to finish it. I have some macros on VB and some more tasks on Python made by me on
+                    Coursera intensive but it’s not connected with web so I won’t give a link for it.
+                </p>
+            </section>
+
+            <section class="main_section">
+                <h2>Education</h2>
+
+                <div class="main_section_item">
+                    <ul>
+                        <li>VBA macros at <a href="https://www.specialist.ru">Specialist</a></li>
+                        <li>Introduction to Python at <a href="https://www.coursera.org">Coursera</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="main_section">
+                <h2>English</h2>
+
+                <p class="main_section_item">
+                    I’ve been studying English from the kindergarten. Then I’ve entered english intensive class at school.
+                    After school I continued to learn English myself.
+                    So now I can say that my English level is Upper-Intermediate.
+                </p>
+            </section>
+
+        </main>
+
+    </body>
+</html>
